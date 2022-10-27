@@ -1,0 +1,86 @@
+First Express.js API
+-time to get to the real deal
+
+***Why Express???
+-more convenient solution
+-if we manage to build same thing over and over again or kindly simillar, we should create a package/a tool which can be apply when we face that task(e.g create a server in node)
+-EXPRESS IS THE MOST POPULAR BACKEND FRAMEWORK FOR JAVASCRIPT
+
+
+***Introduction to Express
+http://expressjs.com/ 
+-first thing we need to do is to init project using npm:    npm init -y
+-second thing:  npm install express
+-create a file 'server.js' and start server with command: npm start ; of course after you set your app and PORT in the file
+
+
+
+***Express vs Next.js vs Koa
+
+***Route Parameters
+-An example of how express make our lifes easier (create a list of friends that we can get by ID)
+
+
+
+***Postman and Insomnia 
+https://www.postman.com/ 
+https://insomnia.rest/
+
+Postman is a collaboration for API testing.
+
+API Client
+Automated testing
+Design & Mock
+Documentation for API
+Monitors API
+Workspaces - share with your team
+
+Insomnia is a tool to help design and debug APIs.
+
+Easier interface ans usability
+
+
+
+***Development Dependencies!!!
+
+-is getting tired restarting server over and over after every change
+-we can install instal 'nodemon' for doing this when we have a change:  npm install nodemon --save-dev  =>nodemon is placed under dependencies section in json and another section
+-also add the script :   "watch": "nodemon server.js"
+-to start type : npm run watch
+
+
+
+***Middleware
+-it allows u to add feature to ur server using requests and responses to/from API
+-are special functions that run between or in the middle of request coming in API and the response coming out API
+-how Middleware functions look like:  (same with others but it has a different parameter added: next)
+
+app.use(function(req, res, next) {
+})
+
+***Writing Our Own Logging Middleware
+look in the code 'server.js', than you have to run the url in postman and get result in console
+
+
+
+***POST Requests in Express
+-create an endpoint to get a new friend and add to our collection
+!!!- in express we have a build in function that understand when a request is being passed as a json   ->   express.json([])
+
+-create function in the file 'server.js' and in POSTMAN create a new requeste, type POST, url and in the body -> set to raw -> set to JSON and write the object below
+{
+    'name': 'example'
+}
+after you send request you will see below the json object that was created 
+
+
+
+***Model View Controller(MVC)
+https://en.wikipedia.org/wiki/Model%E2%80%93view%E2%80%93controller
+
+-MVC is a software design pattern commonly used for developing user interfaces that divides the related program logic into three interconnected elements. This is done to 
+separate internal representations of informations from the ways information is presented to and accepted from the user.
+
+
+
+***Modevl View Controller in ExpressJS

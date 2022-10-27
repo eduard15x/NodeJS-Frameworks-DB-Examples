@@ -1,0 +1,370 @@
+WHAT YOU'LL LEARN
+    Build enterprise-level Node applications and deploy to the cloud (AWS)
+    Lead Node JS projects by making good architecture decisions and helping others on your team
+    Work with real-life data and the SpaceX API to build a NASA launch system to discover new planets that may contain life + other projects
+    Build a MERN (MongoDb, Express, React, Node) fullstack app and deploy to production
+    Become a top 10% Node Developer by learning advanced topics most courses don't cover
+    Master the latest ecosystem of a Backend Node JS Developer from scratch
+    Learn to build secure and performant, large-scale applications like a Senior Backend Developer
+    Use Node JS to build production grade apps including REST APIs and GraphQL APIs
+    Authentication, File I/O, Databases (SQL, MongoDB), Express Framework, Sockets, plus many other important topics a Backend Developer should know
+    Load balancing, Monitoring, CI/CD, and Zero Downtime Deployment
+    Learn security best practices throughout the course so you can be confident with your deployments
+
+
+NodeJS Fundamentals: Module System
+
+***The require function
+
+require('https)
+require('events)
+
+
+we store results from require function in a variable
+
+const EventEmitter = require('events)
+
+
+
+***Makking HTTPS Requests
+What can we do with build in modules?
+
+-we have all functionality from nodejs documentation (nodejs.ord/dist/latest-v14.x/docs/api)
+
+E.g with HTTP modules - lets try to see what happens when we try to acces google.com in our browser
+
+
+***Why Use Modules??
+-What benefits can gives us?
+
+Explication: A module is like a box, thix box containing some code that is dedicated to do something well.
+            We will name this module "http.js" and combine with other modules to create a complex program with
+            functionality
+
+Why using it?
+BENEFITS
+1.Reuse existing code and dont have to reinvent things that were already did
+2.Organize your code
+3.Expose only what will be used.
+
+!!! De exemplu, modulul "http.js" este ceva ce ar trebui sa ceara si sa primeasca date de la un server, pt asta:
+In spate sunt 2 alte module, unul de 'request.js' si altul de 'response.js'
+Pe noi nu ne intereseaza cum sunt trimise/aduse datele (in ce mod), ci doar sa functioneze. Acele 2 module sunt
+incluse in modulul principal 'http.js'
+
+
+***CREATING OUR OWN MODULES
+WATCH MODULES-EXAMPLE directory
+
+
+***EXPORTING FROM MODULES
+WATCH MODULES-EXAMPLE directory example 
+only thing to think is when u import the function in the main file
+use const { name } = require('./file') and call directlyinstead of const request = require('./file') and calling
+it in function as an object
+ 
+
+
+ ***CommonJS modules vs ECMAScript(ES6) Modules
+the main difference is between the way you import/export modules
+-CommonJS import/export is how you did in example MODULES-EXAMPLE directory
+-ES6 is how you already know to import/export -> export {function, function} / import {} from "./file" 
+
+NodeJS think the code of javascript as CommonJS, since it was created
+If you want to use ES6 you need to rename file with .msj extension instead of .js
+
+
+
+***Module Caching
+You cant call 2 or more times same modules, it is loaded somewhere in cache and doesn'
+allow to recall same thing multiple times.
+
+
+*** index.js
+-index.js is a special case case where you can import modules from inside of a directory so you dont have to 
+import every module separatelly
+
+
+
+
+
+NodeJS Fundamentals - Package Management (npm)
+https://www.npmjs.com/
+
+***NPM - The Node Package Management
+-We want things to be easier to make requests, create servers and talk with DBs+, module release by
+other developers is called ThirdParties and is very usefull
+-We use npm to install and access this packages
+-When we talk npm there are 2 things:
+    1. NPM JS Website - COllection of code 
+    2.A tool when u downloaded when u installed node
+    Ussage: npm <command> and u will see details in console
+
+***Creating Our First NPM Package 
+!!! module vs package
+        module = file that contains some code which maybe is exported from that module
+        package = kind of collection of modules that were packaged together
+
+before any installation of library or implementation we need to initialize npm for package.json - npm init ->
+just go enter for all default changes
+
+e.g - $npm install axios(library) - you can see in the package.json that a object "dependencies"
+        was added with the key axios and a value
+
+in the package.json, in the scripts object add a key "start" with the value to start ur node application 
+"node http.js"
+
+Now, you dont have to type in console 'node http.js' to run ur application, you can just type npm run start
+
+
+
+***Packages And The NPM Registry
+npm site is like a database of all this availables packages
+package = means a reusable package from the npm registry
+
+
+***Using Third Party Modules
+-npm init ( in the new folder will be installed the package.json)
+-npm install axios (download all the code from axios package)
+-create a new file request.js and create a variable wich require axios -> require('axios')
+-in package.json, inside scripts object add the "start" key and value that run ur script
+-test with npm start
+
+
+*** The node_modules Folder
+-contains all modules that we have installed from npm
+
+!!!DONT INCLUDE IT IN GIT , YOU HAVE TO INSTALL IT FROM SCRATCH, THE THINGS WILL BE STILL THERE 
+
+
+
+***Semantic Versioning
+https://semver.org/
+
+Given a version number MAJOR.MINOR.PATCH, increment the:
+
+1.MAJOR version when you make incompatible API changes,
+2.MONOR version when you add functionality in a backwards compatible manner, and
+3.PATCH version when you makke backwards compatible bug fixes.
+
+
+
+***package-lock.json and Versioning
+https://semver.npmjs.com/
+
+It is a more specific and more detailed file for the dependencies object from package.json
+
+
+
+***Installing NPM Tools: nodemon 
+https://www.npmjs.com/package/nodemon
+-usefull Tools: nodemon (it run the script everytime when u refresh page)
+
+->npm install nodemon (can be saw in "dependencies")
+->adding a script that use nodemon -> "dev": "nodemon request.js",
+->run nodemon : npm run dev
+
+RECOOMENDATION
+if you want to use it everywhere, you can install it globally -> npm install nodemon -g / npm uninstall nodemon
+
+
+
+
+
+
+PROJECT
+Node.js File I/O - Planets Project
+
+csv file = comma separated values
+
+This below is the file system module, but has no understandig what csv are, and read it only like strings
+CSV Parser NPM Package - https://www.npmjs.com/package/csv-parse 
+CSV Parser Documentation - https://csv.js.org/parse/ 
+Bonus: Are We Alone In The Universe? - https://exoplanets.nasa.gov/search-for-life/can-we-find-life/
+
+Node, will have no understanding too what every line means and contains collection of data and planets
+Here comes the ThirdParties -> csv-parse package
+
+Install packagge csv->
+FLOW:
+In the new folder Planets -> npm init -y
+Create new file 'index.js' because if you watch in 'package.json' this is working as default file
+install csv package -> npm install csv-parse
+start using that module in 'index.js'
+***This package is a parser converting CSV text input into arrays/objects. It implements the Node.js stream API.
+There exists more API, but each have their own advantages and disadvantages
+
+-Reading our planets data
+https://nodejs.org/api/fs.html#fs_fs_createreadstream_path_options
+const { parse } = require('csv-parse');
+//file system functionality
+const fs = require('fs');
+
+const results = [];
+
+// parse.()
+
+fs.createReadStream('kepler_data.csv')
+    .on('data', (data) => {
+        results.push(data);
+    })
+    .on('error', (err) => {
+        console.log(err);
+    })
+    .on('end', () => {
+        console.log(results);
+        console.log('done');
+    })
+
+
+
+-Parsing our planets data 
+-call .pipe(parse()) function -> its connecting the two streams together, the pipe connects the read source to readable destination
+readStream('path') is the source
+the parse() is the destination
+---readable.pipe(writable);
+
+pipe()
+
+fs.createReadStream('kepler_data.csv')
+    .pipe(parse({
+        //we want to treat lines that start with that character #-
+        comment: '#',
+        //this will return each row as a javascript object key-value
+        columns: true,
+    }))
+    .on('data', (data) => {
+        results.push(data);
+    })
+    .on('error', (err) => {
+        console.log(err);
+    })
+    .on('end', () => {
+        console.log(results);
+        console.log('done');
+    })
+
+
+
+-Finding Habitable Planets
+create a function that filters out only those planets that were confirmed
+
+-Explorin Habitable Planets
+map() function take a callback that for each item in that array processes somehow and return the new values for that item ->
+        takes all name key with their values ( ex. array.length = 8 => 8 name will log)
+
+
+
+
+~~~ WEB SERVERS WITH NODEJS ~~~
+***What is a web server?
+What is a backend?, web server?, http server?
+
+-When u type something in browser(facebook) ur browser call a DNS Server and sending the URL (facebook.com) and server return us the
+IP address for that URL (e.g 31.13.80.36);
+-With IP address we received from DNS Server we communicate with HTTP Server which will give us the data we are asking for(request,response)
+
+
+***Introduction to HTTp Requests and Responses
+HTTP Requests methods: GET, HEAD, POST, PUT, DELETE, CONNECT, OPTIONS -> https://developer.mozilla.org/en-US/docs/Web/HTTP/Methods
+
+
+***HTTP Requests
+https://www.mulesoft.com/resources/api/what-is-an-api
+-What is an API (Application Programming Interface)
+API allows two applications to talk to each other (e.g A Browser with a Server -> they communicate (request-response))
+E.g
+We can categorize requeste to server
+GET/friends
+GET/friends/5
+
+POST/messages
+
+PUT/messages/15 (it allows to replace the message with a new message)
+
+DELETE/messages/15
+DELETE/friends/5
+
+METHOD: POST
+PATH: /messages
+BODY: {text: "hello", photo: "smile.jpg"}
+HEADERS(optional properties): to send metadata to the web server, authentication informations to validate forms:  Host:facebook.com 
+
+
+***HTTP Responses 
+https://developer.mozilla.org/en-US/docs/Web/HTTP/Status
+
+HEADERS: Content-Type: application/json (what type of data is sent in the body)
+BODY: {text: "hello", photo: "smile.jpg"}
+STATUS CODE: SUCCESsFULL/ERROR -> 200(success), 300-399(redirects), client errors(400-499), server error(500-599)
+
+
+
+***Our First Webserver
+-start making node servers that you can put on the web and respond to user
+
+
+
+***HTTP APIs and Routing
+watch file
+
+
+***Parameterized URLs
+Send and get data from a file or DB (we made example how to send from an object type json)
+
+
+
+***Same Origin Policy
+ORIGIN = PROTOCOL + HOST + PROTOCOL 
+PROTOCOL = http/https
+HOST = www.google.com
+PORT = :443
+
+https://developer.mozilla.org/en-US/docs/Glossary/Origin
+https://developer.mozilla.org/en-US/docs/Web/Security/Same-origin_policy
+
+-Web content's origin is defined by the scheme (protocol), hostname (domain), and port of the URL used to access it. 
+Two objects have the same origin only when the scheme, hostname, and port all match.
+
+These are same origin because they have the same scheme (http) and hostname (example.com), and the different file path does not matter:
+http://example.com/app1/index.html
+http://example.com/app2/index.html
+
+
+
+***Cross Origin Resource Sharing(CORS)
+For example think about wikipedia.... when you load the page, the all diagrams/images are requested from another domain like WIKIMEDIA.org or something like this
+https://en.wikipedia.org/wiki/Whitelist
+
+Access-Control-Allow-Origin: https://www.google.com
+Access-Control-Allow-Origin: *  => allows request from all origins
+
+It is better to specify the domain for where you need to do request and avoid to let malicious sites to make request to ur site.
+Think like a WHITELIST (what is good on your list) vs BLACKLIST (what is bad for your list)
+
+
+***POSTing Data to the Server
+-POST request is used to add new data, and PUT is for adding extra data that is already there.
+
+u have to follow function in browser console to send data to server
+
+**********************************************************
+fetch('http://localhost:3000/friends', {
+    method: 'POST',
+    body: JSON.stringify({ id: 3, name: 'Katalin Kovacs'})
+})
+**********************************************************
+This will be only saved for the current session until you restart server because you save it in that array memory and not into a database.
+
+
+
+***Requests and Responses as Streams
+req.pipe(res);
+-> we passe some JSON data into readable stream and pipe it into writable(the response) stream 
+************************************
+fetch('http://localhost:3000/friends', {
+    method: 'POST',
+    body: JSON.stringify({ id: 3, name: 'Katalin Kovacs'})
+})
+  .then((response) => response.json())
+  .then((friend) => console.log(friend))
