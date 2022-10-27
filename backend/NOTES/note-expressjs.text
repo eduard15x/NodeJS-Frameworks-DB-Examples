@@ -83,4 +83,13 @@ separate internal representations of informations from the ways information is p
 
 
 
-***Modevl View Controller in ExpressJS
+***Model View Controller in ExpressJS
+-we will start with our req coming in and res coming out that will be our controllers to handle
+-in our directory, create a new folder named 'controllers' and in that controller we will create a few files/node modules / we will create one for each of one collection of data( one
+for friends and one for messages)
+-create a file 'friends.controller.js' and a file 'messages.controller.js'
+-move our route handler function which send data to user into our new files (E.g for messages, move req.send(`html`))
+-the controllers u create you havee to export and import in the main file 'server.js'
+
+-the data u want to send(for example an array for 'friends'), you have to create a folder 'model' and a file with name 'friends.model.js' to set ur data for friends
+-that file u need to export and import in the controller where u need that data and change with the new name variable which is same with friends array

@@ -1,19 +1,12 @@
 const express = require('express');
 
+const friendsController = require('./controllers/friends.controller');
+const messagesController = require('./controllers/messages.controller');
+
 const app = express();
 
 const PORT = 3000;
 
-const friends = [
-    {
-        id: 0,
-        name: "Eduard 1999"
-    },
-    {
-        id: 1,
-        name: "Tudor 2007"
-    }
-]
 //this is the middleware function 
 app.use((req, res, next) => {
     const start = Date.now();
@@ -28,53 +21,15 @@ app.use((req, res, next) => {
 
 app.use(express.json())
 
-app.post('/friends', (req, res) => {
-    if (!req.body.name) {
-        return res.status(400).json({
-            error: 'Missing friend name'
-        });
-    }
+app.post('/friends', friendsController.postFriend);
 
+app.get('/friends', friendsController.getFriends);
 
-    const newFriend = {
-        id: friends.length,
-        name: req.body.name
-    };
-    friends.push(newFriend);
+app.get('/friends/:friendId', friendsController.getFriend);
 
-    res.json(newFriend);
-})
+app.get('/messages', messagesController.getMessages);
 
-
-app.get('/friends', (req, res) => {
-    // res.send(friends);
-    //this function is to be more clear we sending json object
-    res.json(friends)
-});
-
-app.get('/friends/:friendId', (req, res) => {
-    const friendId = Number(req.params.friendId);
-    const friend = friends[friendId];
-    if ( friend ) {
-        // res.json(friend);
-        //or
-        res.status(200).json(friend)
-    } else {
-        // res.sendStatus(404);
-        //or
-        res.status(404).json({
-            error: "Friend doesn't exist"
-        })
-    }
-})
-
-app.get('/messages', (req, res) => {
-    res.send('<ul><li>Say hello again from this list to my friend!</li></ul>');
-});
-
-app.post('/messages', (req, res) => {
-    console.log('Updated messages...')
-});
+app.post('/messages', messagesController.postMessage);
 
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`)
