@@ -1,9 +1,14 @@
 const express = require('express');
+const path = require('path');
 
-const friendsController = require('./controllers/friends.controller');
-const messagesController = require('./controllers/messages.controller');
+const friendsRouter = require('./routes/friends.router.js');
+const messagesRouter = require('./routes/messages.router.js');
 
 const app = express();
+
+//adding 'hbs' template engime
+app.set('view engine', 'hbs');
+app.set('views', path.join(__dirname, 'views'));
 
 const PORT = 3000;
 
@@ -13,23 +18,39 @@ app.use((req, res, next) => {
     next();
     //actions go here...
     const delta = Date.now() - start;
-    console.log(`${req.method} ${req.url} and took ${delta}ms`);
+    console.log(`${req.method} ${req.baseUrl}${req.url} and took ${delta}ms`);
 });
 //this is the middleware function 
 //run url in POSTMAN and see in console the results... time might be different because POSTMAN log the time between http req beeing sent and res gettin back, when in our code
 //the time meassure how long does node need to get results
 
-app.use(express.json())
+//if we have a html page in public folder
+app.use('/site', express.static(path.join(__dirname, 'public')));
 
-app.post('/friends', friendsController.postFriend);
+app.use(express.json());
 
-app.get('/friends', friendsController.getFriends);
+//start working for our router
+//this '/friends' is used only if is the same path for all routes, get and post
 
-app.get('/friends/:friendId', friendsController.getFriend);
+app.get('/', (req, res) => {
+    res.render('index', {
+        title: "My friends are VERY Clever",
+        caption: "France has nice mountains",
+        body: ''
+    })
+})
 
-app.get('/messages', messagesController.getMessages);
+app.use('/friends', friendsRouter);
+//This down was used before using a router
+// app.post('/friends', friendsController.postFriend);
+// app.get('/friends', friendsController.getFriends);
+// app.get('/friends/:friendId', friendsController.getFriend);
 
-app.post('/messages', messagesController.postMessage);
+// app.get('/messages', messagesController.getMessages);
+// app.post('/messages', messagesController.postMessage);
+app.use('/messages', messagesRouter);
+
+
 
 app.listen(PORT, () => {
     console.log(`Listening on ${PORT}`)

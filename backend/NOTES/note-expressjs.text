@@ -93,3 +93,75 @@ for friends and one for messages)
 
 -the data u want to send(for example an array for 'friends'), you have to create a folder 'model' and a file with name 'friends.model.js' to set ur data for friends
 -that file u need to export and import in the controller where u need that data and change with the new name variable which is same with friends array
+
+
+
+***Express Routers
+-What is a ROUTER??
+ROUTER = this is like a mini application, just like our express application. It contains its own set of Middleware and Route. We use a Route to break down our app and make it more modular
+-> express.Router();
+
+
+
+***RESTFUL APIs
+-what best practices to use when designing our APIs / or how to name our APIs
+-What makes an API RESTFUL?
+RESFUL APIs = are APIs that follow a certain style or pattern that we use when we use to build HTTP APIs 
+
+REST = REpresentational State Transfer
+
+Most important idea: 
+-Use existing standards (HTTP, JSON, URL)
+-Endpoints are collection of data that are stored on the server side
+-Use GET, POST, PUT and DELETE to communicate our action that perform on the collection of data
+-Client and server architecture -> Client display data to the user and allow him to perform action that are send to the server where send back data to the user 
+-Stateless and cacheable - > each request is separate ant not connected with no state of the client, so our server isn't keeping tracked . We just keep track of our collection of data. We can cache
+request for future use. (about user data maybe/ logins form)
+
+
+
+***Create Read Update and Delete (CRUD)
+-HTTP Methods for RESTful APIs - https://www.restapitutorial.com/lessons/httpmethods.html
+
+HTTP Verb /     CRUD
+
+POST      /     Create
+GET       /     Read
+PUT       /     Update/Replace
+PATCH     /     Update/Modify
+DELETE    /     Delete
+
+
+
+***SENDING FILES
+-how to send for example other type of data than json/text/html (for ex a image)
+-we need to call (require) path module in the first line, because if we want to specify in  a res.send('/path) the location of photo we can't do this without require the path module
+ 
+
+
+ ***Serving Websites With Node
+Bonus: Key Features of a Content Delivery Network - https://aws.amazon.com/cloudfront/features/
+-use node to serve a frontend web application, (e.g a static webpage), you need to use express static file middleware
+
+
+
+***Templating Engines
+expressjs.com/en/resources/template-engines.html
+
+Q:What does a Template Engine do? 
+A: When you run an Express Server, the template engine replaces the variables e.g: {{title}} -> with their actual values that comes from node server and transform that document into a template that comes as an 
+HTML file to be rendered by the browser
+
+To use Template Engine we need to install npm package 'hbs' = "handle bars"  ->  npm install hbs --save
+We dont need to import/require into our node application
+Express has its own way to load the template engine internally, we just need to tell express which template engine we are using and where can finds the template
+Go to API reference on the site I wrote above, and look for app.set() method
+set template engine in 'server.js'    ->   app.set('view engine', 'hbs');
+create folder 'views'
+move html into this folder, change name to .hbs
+in the route file js 'server.js' add -> app.get('/', ())
+
+
+
+***Layouts and Separation of Concerns
+-how template engine apply
