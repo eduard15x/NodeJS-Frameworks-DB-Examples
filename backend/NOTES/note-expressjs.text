@@ -165,3 +165,4 @@ in the route file js 'server.js' add -> app.get('/', ())
 
 ***Layouts and Separation of Concerns
 -how template engine apply
+-we 

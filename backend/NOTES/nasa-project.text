@@ -1,0 +1,116 @@
+NASA project
+***Introduction & Architecture
+https://www.lucidchart.com/
+
+1.Create server and client folder
+2.Lucidchart - is to create diagrams for project to have a better visuallise
+3.We using MVC (model-view-controllers) pattern
+
+
+
+***NASA Dashboard Front End Setup
+https://create-react-app.dev/ 
+https://academy.zerotomastery.io/courses/1206554/lectures/31819184
+
+
+***NASA Dashboard Functionality
+-
+
+
+***What You Need To Know
+...react
+
+
+***React.js Front End Code Walkthrough
+*General idea about react
+
+
+
+***API Server Setup
+-we going to setup our node server so we can build a production ready for our API
+-we gonna use express framework: 
+    go to server folder 
+        -> npm init -y 
+            -->> npm install express (dependencies)
+                --->>>npm install --save-dev nodemon(for life easier)
+
+
+***Environment Variables On Windows
+"start": "set PORT=5000&& node src/server.js"
+
+Instead of:
+
+"start": "PORT=5000 node src/server.js"
+
+
+***GET /planets
+see Code
+
+
+
+***CORS Middleware
+-You can;t fetch data between ur severs without setting a header (e.g from localhost:7000 -> to localhost:2000)
+
+REMEMBER - What is an origin? (cors origin requests)
+https://www.npmjs.com/package/cors
+
+Protocol -> https://
+Host -> www.google.com
+Port -> :443
+
+Think of whitelisting -> opposite of blacklisting
+
+how to setup a cors
+1.install cors package to our server-> npm install cors  
+2.Go to ur app file, require cors and call with app.use(cors());
+
+
+
+***Models vs Controllers vs Routers
+Why to have our models separated ny controllers and routers
+
+!!!There is always 1 for 1 for routes and controllers
+a.router.js <---------- a.controller.js
+
+There is not always 1 for 1 into models and controllers
+model might be using in another controllers or routes
+
+
+
+
+
+
+***The Planets Model
+in the server -> npm install csv-parse
+
+
+
+***LOADING Data On Startup
+Bonus: Node Streams Promises API - https://nodejs.org/api/stream.html#stream_streams_promises_api
+
+
+***Automating Full Stack Applications With NPM
+-to run our nasa project we need to run or backend API by changing directory to our server by running
+npm start/npm run watch   and    in a different terminal we need to our client from client folder and 
+running npm start
+
+-we will add another package to the root folder for NASA, and we will use this root npm package to 
+start our application both for frontend and backend, and avoid switching the folder to start 
+separately
+
+-go to nasa project folder, npm init -y
+-go to package.json and create two scripts that will run the server first than the client
+instead of 
+    /* "server": "cd server && npm run watch",*/
+    /* "client": "cd client && npm start",*/
+do this 
+    "server": "npm run watch --prefix server",
+    "client": "npm start --prefix client",
+than create 
+    "watch": "npm run server & npm run client",
+
+    LOOK UP this
+
+
+
+***Serving React.js Front End In Production
