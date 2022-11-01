@@ -107,10 +107,55 @@ do this
     "server": "npm run watch --prefix server",
     "client": "npm start --prefix client",
 than create 
-    "watch": "npm run server & npm run client",
-
+    MAC/LINUX "watch": "npm run server & npm run client",
+    WINDOWS "watch": "npm-run-all --parallel server client",
+    
     LOOK UP this
 
 
 
 ***Serving React.js Front End In Production
+Deployment With Create React App - https://create-react-app.dev/docs/deployment/
+
+How to run our application on the same server? (for ex have same PORT)
+Clouds to deploy applications: AWS Amplify, Azure, Firebase
+
+for moment: 
+1.Go to client folder and run : npm run build
+
+-2.Create this in package json 
+    MAC/LINUX"build": "BUILD_PATH=../server/public react-scripts build",
+    WINDOWS "build": "set BUILD_PATH=../server/public&&react-scripts build",
+*this will create a compressed app in the server folder* and copy all files 
+-Or you can do it manually and just copy-paste the folder public
+
+
+
+***Logging Requests With Morgan
+Morgan NPM Package https://www.npmjs.com/package/morgan
+
+npm install morgan  
+HTTP Request logger middleware for node.js -> const morgan = require('morgan');
+call middleware in app.js
+
+
+***The Launches Model 
+JavaScript Maps - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
+
+JavaScript Map object holds key-value pairs and remembers the original insertion order of the keys. 
+
+
+
+***GET /launches
+see code / is almot same with /planets ... dont forget to fetch data to frontend in requests.js`
+
+
+***Serving Applications With Client Side Routing
+in app.js, use that " * " star and add it where server send index.hjtml
+app.get('/*', (req, res) => {
+    res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
+})
+
+
+
+***Working With Data Models: Building a Data Access Layer
