@@ -18,8 +18,8 @@ app.use(express.json());
 //here we use another build-in express middleware to serve the public files
 app.use(express.static(path.join(__dirname, '..', 'public')));
 
-app.use(planetsRouter);
-app.use(launchesRouter);
+app.use('/planets', planetsRouter);
+app.use('/launches', launchesRouter);
 app.get('/*', (req, res) => {
     res.sendFile(path.join(__dirname, '..', 'public', 'index.html'));
 })

@@ -159,3 +159,14 @@ app.get('/*', (req, res) => {
 
 
 ***Working With Data Models: Building a Data Access Layer
+Separation of Concerns - https://en.wikipedia.org/wiki/Separation_of_concerns 
+
+What goes in MODEL and what goes in CONTROLLER ??????
+MODELS only works with the data based on however is stored
+CONTROLLERS only use function to work with data model
+
+
+***POST /launches: Creating Launches 1
+
+
+***Connecting POST /launches With Front End Dashboard

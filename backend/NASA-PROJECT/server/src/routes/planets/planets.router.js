@@ -1,9 +1,11 @@
 const express = require('express');
 
-const { getAllPlanets } = require('./planets.controller');
+const { httpGetAllPlanets } = require('./planets.controller');
 
 const planetsRouter = express.Router();
 
-planetsRouter.get('/planets', getAllPlanets);
+
+// -> the url will have /planets already set from the app.js and will end with "/" => e.g  /planets/
+planetsRouter.get('/', httpGetAllPlanets);
 
 module.exports = planetsRouter;
