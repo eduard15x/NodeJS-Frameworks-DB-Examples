@@ -1,0 +1,112 @@
+***Building A Simple Blocking Server
+in the new folder "PERFORMANCE-EXAMPLE"
+
+npm init -y
+npm install express
+
+create server.js
+
+run server -> npm run start
+
+
+***Real Life Blocking Functions
+    Response Times: The 3 Important Limits - https://www.nngroup.com/articles/response-times-3-important-limits/ 
+    User Engagement Charts - https://speedcurve.com/blog/web-performance-monitoring-user-engagement/ 
+    Node crypto Module - https://nodejs.org/api/crypto.html
+
+
+***Running Multiple Node Processes
+-when face a big problem, is recommended to divide it in small problems
+-for us, when working with servers that are overloading with too much work, we want to divide that work
+
+
+***The Node Cluster Module
+    Node cluster Module - https://nodejs.org/api/cluster.html
+
+-allows you to create copies of node process that run side by side
+
+                                        ->fork() copy the master process and start a new process-worker, take http request and response to it
+E.g node server.js -> master process    ->fork() copy the master process and start a new process-worker, take http request and response to it
+                                        ->fork() copy the master process and start a new process-worker, take http request and response to it
+
+Now, we will have 4 total processes -> 1 is master process and 3 workers requests
+
+
+
+***Clustering In Action
+cluster.fork()
+
+***Maximizing Cluster Performance
+require('os')
+const NUM_WORKERS = os.cpus().length;
+for ( let i = 0; i < NUM_WORKERS; i++) {
+    cluster.fork();
+}
+
+
+
+***Load Balancing
+    Load Balancing Overview - https://en.wikipedia.org/wiki/Load_balancing_(computing) 
+    Horizontal Scaling vs Vertical Scaling - https://www.section.io/blog/scaling-horizontally-vs-vertically/
+
+Very important for backend
+It refers to the process of distributing a set of taskss over a set of resources(computing units), with the aim of making their overall 
+processing more efficint.
+
+
+
+***The PM2 Tool
+    Official PM2 Website - https://pm2.keymetrics.io/
+
+PM2 is a daemon process manager that will help you manage and keep your application online 24/7
+PM2 is a production process manager for Node.js applications with a buil-in load balancer. It allows you to keep applications alive forever, to
+reload them without downtime and to facilate common system admin tasks.
+
+
+
+***Using PM2 To Create Clusters
+    PM2 on NPM - https://www.npmjs.com/package/pm2
+
+main folder -> 
+npm install pm2
+npm install pm2 -g
+
+pm2 start server.js
+pm2 stop server/ id
+pm2 delete server
+
+use git bash to run commands
+
+to start a cluster in the pm2 ->
+pm2 start server.js -i 2/max
+    -i (instance)
+    2 - start 2 workers
+    max - start maximum workers
+
+pm2 list -> see the process available
+pm2 logs -> see the logs
+pm2 restart server -> restart server
+pm2 logs --lines 200
+
+
+***Managing Live Clusters With PM2
+-pm2 start server -l logs.txt -i max  -> with -l (you specify a file)
+                                      -> with logs.txt (the file you want to get logs)
+                                      -> with -i (run server in cluster mode)
+                                      -> with max (amount of logical cores)
+
+-if we want to run our server in cluster mode
+-if you want to get more informations about you one of the server, just run : pm2 show id(nr)
+-you can also stop one of the server if you see a problem there, just run: pm2 stop id(nr) / and start also individually
+-you can monitor the servers with a command: pm2 monit -> it lets you see in more details the dashboard
+
+
+
+***Zero Downtime Restart
+    Bonus: Deployment Strategies On Google Cloud - https://cloud.google.com/architecture/application-deployment-and-testing-strategies
+
+This happens when you want to make a change in your code (change a string, or a command etc), but if you change you need to restart the server again, but there exist users 
+that are using in that moment the server and we dont want to give them a 'schedule downtime/maintenance'
+
+The solution for this, 
+pm2 reload server -> this will restart processs one by one, and this will not stop the servers

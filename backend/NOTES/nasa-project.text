@@ -170,3 +170,70 @@ CONTROLLERS only use function to work with data model
 
 
 ***Connecting POST /launches With Front End Dashboard
+
+
+Updating Our Architecture Diagram
+Don’t be a Junior Developer - https://zerotomastery.io/blog/dont-be-a-junior-developer/
+
+
+
+
+
+
+Testin APIs
+***Testing in Node
+
+Unit Tests -> API Tests -> Automated UI Tests -> User that uses application
+
+For us it's important the API Tests where we test requests coming in, going through our middlewares , being process by 
+process handler, being send back by a response!!!
+
+
+
+***Testing APIs With Jest
+Official Jest Website - https://jestjs.io/
+
+-Test runner
+-Test fixtures
+-Assertions (E.g which are functions that allows to check we expect that 5+5=10)
+-Mocking (E.g We have database and see how data are deleted and added, but mocks allow us to simply replace)
+
+JEST is a npm package and includes all of the above, working for Frontend and Backend
+
+USE: go to server directory, because we are testing our server
+-> npm install jest --save-dev
+->in the package.json, scripts, do the following
+    "test": "jest",
+    "test-watch": "jest --watch", //this will retest our code for every change
+
+->go to cmd and run the JEST -> npm run test
+-> we create a file "launches.test.js" (this has to be done for every folder to test)
+
+
+***Testing API Endpoints With Supertest: GET
+in the server -> npm instal supertest --save-dev
+-> in each test file you can require for supertest -> line 1 of file -> const request = require('supertest')
+
+
+
+***Testing API Endpoints With Supertest: POST
+
+***Testing API Endpoints With Supertest: Error Cases
+
+***Exercise: Imposter Syndrome
+
+
+
+
+
+
+Improving Node Performance
+***Node Server Performance
+
+
+
+***Improving Performance Of Our NASA Project
+-we need now to start our server with pm2
+
+go to server folder in Nasa-Project
+npm install pm2
