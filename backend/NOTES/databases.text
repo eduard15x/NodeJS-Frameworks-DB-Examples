@@ -1,0 +1,201 @@
+Databases
+
+-a database is a collection of data!
+
+Examples of DB
+-MySQL
+-Microsoft SQL Server
+-mongoDB
+-MariaDB
+-PostgreSQL
+-IBMDB2
+-cassandra DB
+
+Remember CRUD Operations: Create, Read, Update/Replace, Update/Modify, Delete
+
+The data no longer lives on our server machine, it lives in a dedicated DB that store and keeps track of our data in the most efficiently way possible
+Our server request to database and database send the response back to the server
+
+
+
+
+JUMP OVER -> Appendix: SQL
+https://academy.zerotomastery.io/courses/enrolled/1073491
+
+
+***BUilding Amazon
+
+
+
+***5 Types Of Databases
+    https://www.ibm.com/cloud/blog/brief-overview-database-landscape
+
+1.Relational Model - The most popular : Sql, PostgreSql, Microsoft Sql, IBM DB2
+    -> Is the titan of the industry. Data is stored in tables as rows and columns and often have sophisticated query engines for analytics and exploration.
+    -> Relational DBs support transactional guarantees and ACID (consistency and durability) compliance, whereas most DBs in the other four families are eventually consistent.
+    -> E-commerce
+    -> Customer relationship management
+
+2.Document Model - MongoDB, CouchDB, FireBase 
+    -> data is big in the document 
+    -> that have to hold very very lot of data
+    ->Event logging, online shopping, content management and in-depth analytical processing
+
+3.Key Value Model - Reddis DB, DynamoDB 
+    -> most basic type of non-relational database, where each item is sotred as an attribute name with a corresponding value
+    -> shopping carts
+    -> user preferences and profile stores
+
+4.Graph Model - AWS Neptune, JanusGraph 
+    -> Similarly to how people think and process information, graph databases recall the relationships between discrete units of data.
+    -> very rarely, a little bit difficult
+    -> fraud detection
+    -> identity and access management
+
+5.Wide Columnar Model - Appache Cassandra, Google Cloud BigTable
+    -> Security and stock market analytics
+    -> Click stream analytics
+    -> IoT and telemetry
+
+    15 minutes: “How to Choose a Database” by Ben Anderson
+    15 minutes: "SQL vs. NoSQL Databases: What's the Difference?" by Ben Anderson and Brad Nicholson
+
+
+
+***Exercise: What Is A Database?
+
+    !!! A database is a system hardware and software that allows user to store data.
+
+
+
+
+***SQL Playground
+    https://www.db-fiddle.com/
+
+
+***What is SQL ?
+
+    - SQL is a language that we will using to talk to a system to get a specific output when ask for a data, we will talk to a database
+    - We will have to write statements (named QUEERIES) that will interact with database, to insert/extract data
+    - statements will be instructions
+
+
+
+***IMPORTANT
+***What is a Query?
+
+    - A QUERY is nothing more than an instruction
+    - In english, query = question
+    - In SQL, querys are the way that we are going to put together our questions for what we want answers from Database
+    - A QUERY = SQL statement
+
+E.g:  SELECT * FROM USERS -> SQL Statement
+-> select us all of the information from users
+
+E.g:  SELECT name FROM USERS -> SQL Statement
+-> select us only the names from users
+
+QUERY BREAKDOWN 
+filtering data in a SQL Statement below
+
+            identifier
+clause SELECT NAME
+clause FROM USERS
+clause WHERE ROLE = 'MANAGER'
+      keyword    condition  
+
+how you comment a line in SQL ? use: -- condition
+
+select name,lastname,sex
+FROM "edy"
+where role = 'manager' 
+
+
+***Imperative vs Declarative
+
+Declarative -> What will happen? E.g: make a sandwich with ham
+
+Imperative -> How it will happen? E.g: Slice bread -> Slice ham -> Make Sandwich
+
+
+
+***History of SQL (history SEQUEL)
+structured english query language
+    https://www.youtube.com/watch?v=KG-mqHoXOXY&ab_channel=ComputerHistoryMuseum
+
+
+Select all the different values from the Country column in the Customers table.
+SELECT DISTINCT Country FROM Customers;
+
+
+***SQL Standards
+
+***Tables
+A table is a representation about an object (e.g user) that stores data
+Every table has a name
+We can see in a table the columns (id, name, sex, dateOfBirth) and the rows (1,2,3 for id; kati, edi, tudor for name; f,m,m for sex; 2000, 1999, 2007 for dateOfBirth)  
+
+
+***COLUMNS
+A collection of columns is called a 'DEGREE'
+What a column can store is a 'DOMAIN / CONSTRAINT'
+
+
+
+***ROWS
+When we create rows we start to create data in the table
+TUPLE = ROW
+
+Every tuple has to follow the column constraint -> the id is a number
+                                                -> the sex is one letter f/m
+                                                etc
+
+
+
+***Primary And Foreign Keys
+-primary key - ID
+-foreign key - managerID
+
+
+
+***Relational vs NoSQL, PostgreSQL vs MongoDB Databases
+
+MongoDB                vs                PostgreSQL
+
+
+MongoDB stores data in documents. Documents are not like Words or PDF, but rather JSON documents based on the JSON specification
+An example of a JSON doc would be:
+
+{
+    first-name: 'Paul',v
+    last-name: 'Grigory',
+    cell: '+447557505611',
+    city: 'London',
+    location: '[45.123,43.232]',
+    profession: '['banking', 'finance', 'trader']',
+    cars: [
+        {
+            model: 'Bentley',
+            year: 2017
+        },
+        {
+            model: 'Aston Martin',
+            year: 2020
+        }
+    ]
+}
+
+
+
+***Scalability
+Capability of the database to keep track of more and more data, maybe it can reach the limit of how much can database stores
+Is all about adding additional hardware memory etc
+-vertically -> create ` big database making a machine stronger
+-horizontally -> connect more smaller databases adding more machine
+
+
+***Sharding
+Sharding is like splitting data into more databases -> for example we have a database that keeps name with all letters
+->we store in database1 -> names from a - g
+->we store in database2 -> names from k - r
+->we store in database3 -> names from s - z

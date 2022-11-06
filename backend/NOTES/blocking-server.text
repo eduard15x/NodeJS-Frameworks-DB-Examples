@@ -110,3 +110,20 @@ that are using in that moment the server and we dont want to give them a 'schedu
 
 The solution for this, 
 pm2 reload server -> this will restart processs one by one, and this will not stop the servers
+
+
+
+***Worker Threads
+    Node Worker Threads Module - https://nodejs.org/api/worker_threads.html 
+    Web Worker API For Browsers - https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API 
+
+    Cluster             VS      Worker Threads
+3 instances of Node           3 instances of Node
+3 processes                   1 process
+
+In production is recommended to use clustering for servers
+
+
+
+***Worker Threads In Action
+SEE THREADS-EXAMPLE folder

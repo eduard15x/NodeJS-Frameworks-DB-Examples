@@ -237,3 +237,12 @@ Improving Node Performance
 
 go to server folder in Nasa-Project
 npm install pm2
+in server -> scripts in package.json
+"cluster": "pm2 start src/server.js -i max"
+
+in nasa-project -> scripts in package.json
+"server": "npm run cluster --prefix server",
+"deploy-cluster": "npm-run-all --parallel build server",
+
+in nasa-project
+npm run deploy-cluster
