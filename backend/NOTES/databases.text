@@ -199,3 +199,127 @@ Sharding is like splitting data into more databases -> for example we have a dat
 ->we store in database1 -> names from a - g
 ->we store in database2 -> names from k - r
 ->we store in database3 -> names from s - z
+
+
+
+
+
+
+__**--**__
+BACK TO INTRODUCTION IN DATABASES 
+
+SQL vs NoSQL
+
+For SQL we look to : PostgreSQL
+For NoSQL we look to : MongoDB
+
+                        MONGO               PostgreSQL
+TYPE                  Document DB        Relational Model
+ORGANIZED INTO        Collections           Tables
+QUERY LANGUAGE          NoSQL                 SQL
+SCALING            Primary Horizontal     Primary Vertical
+
+
+
+***Database Schemas & Schemaless Databases
+
+SCHEMA
+MongoDB - Flexible
+PostgreSQL - Rigid
+
+
+
+***Choosing a Database for our NASA Project
+You always have to think about your project and how to store data
+
+For our project, we have 2 reasons why we should have a database
+    1.Data need to persists between restarts (so we dont lose launches when we restart server)
+    2.API needs to be stateless for cluster mode
+
+Our database is supposed to have a list of launches, of each launch contains different properties including numbers, strings, arrays, booleans
+
+Currently our launches are stored in a map, each one is looked up by its flight number that has to be unique
+
+
+
+***SQL vs MongoDB: Trends and Object-Relational Impedance Mismatch
+    JSON and BSON in MongoDB - https://www.mongodb.com/json-and-bson 
+    Writing Scripts for the Mongo Shell - https://docs.mongodb.com/manual/tutorial/write-scripts-for-the-mongo-shell/ 
+    Postgres JSON Types - https://www.postgresql.org/docs/current/datatype-json.html 
+    Object-Relational Impedance Mismatch - https://en.wikipedia.org/wiki/Object%E2%80%93relational_impedance_mismatch
+
+SQL vs MongoDB in our NASA PROJECT
+MongoDB includes a Shell when u install on ur machine that allows you to send querys
+You can write scripts for the mongo shell in JavaScript that manipulate date in MongoDB or perform administrative operation.
+
+Object-relational impedance mismatch
+
+
+
+
+***SQL vs MongoDB: Schemas, References, and ACID Transactions
+    ACID Transactions - https://www.ibm.com/docs/en/cics-ts/5.4?topic=processing-acid-properties-transactions
+
+MongoDB
+    Best for unstructured data or where the structure will change often
+
+
+SQL
+    Structure of data is known and well defined (banking and credit card information)
+
+
+
+***Setting up MongoDB Atlas
+    Official MongoDB Website - https://www.mongodb.com/ 
+    The Principle of Least Privilege - https://www.cyberark.com/what-is/least-privilege/
+
+We can install our MongoDB on our machine locally -> https://www.mongodb.com/  -> Software -> community server
+!!! But we will need maybe better to use MongoDB from Cloud for free named MongoDB Atlas  https://www.mongodb.com/ -> Cloud -> Atlas -> Start free
+USERNAME:nasa-api
+USERNAME:nasa-api
+USERNAME:nasa-api
+PASSWORD:38cLbMrABYlKiPpX
+PASSWORD:38cLbMrABYlKiPpX
+PASSWORD:38cLbMrABYlKiPpX
+
+Network access -> For all IP
+Connect DB -> Connect your application -> mongodb+srv://nasa-api:<password>@nasacluster.bxzfqjk.mongodb.net/?retryWrites=true&w=majority
+
+
+
+***Connecting to MongoDB
+    Official Mongoose Website - https://mongoosejs.com/
+-node package
+-elegant mongoDB object modeling for node.js
+
+REPLACE PASSWORD with your set password for DB
+-in NASA PROJECT -> server.js ->  const MONGO_URL = 'mongodb+srv://nasa-api:38cLbMrABYlKiPpX@nasacluster.bxzfqjk.mongodb.net/?retryWrites=true&w=majority'
+-in NASA PROJECt -> server folder -> npm install mongoose
+now -> server.js -> const mongoose = require('mongoose');
+
+below startServer() function -> await mongoose.connect(MONGO_URL)
+
+Check if connection is working -> above function startServer() or anywhere->    mongoose.connection.once('open', () => {
+                                                                                    console.log('MongoDB connection ready');
+                                                                                })  
+
+Check errors -> mongoose.connection.on('error', (err) => {
+                    console.error(err);
+                });
+
+
+
+***Mongoose
+-Mongoose gives us object modeling for node.js
+
+-To start with a database the data is all stored in a Collection. Our MongoDB are made up of 1 or more Collections.
+The actual data the Collection stores lives in Documents
+The relation between Collection <-> Document is that Collection has many Documents
+The collection is made up of 0 or more documets ( 0 if document is empty)
+The Document stores data in this JSON format that mongo calls bijson
+
+NodeJS Server ---Queries--->>> Model ---Uses--->>> Schema ---Maps To--->>> Collection ---Has many--->>>Documents
+
+
+
+***NASA -> Creating Mongoose Schema for Launches
