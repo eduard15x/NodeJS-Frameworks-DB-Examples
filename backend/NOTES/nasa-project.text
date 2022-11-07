@@ -246,3 +246,5 @@ in nasa-project -> scripts in package.json
 
 in nasa-project
 npm run deploy-cluster
+
+

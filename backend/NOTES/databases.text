@@ -323,3 +323,148 @@ NodeJS Server ---Queries--->>> Model ---Uses--->>> Schema ---Maps To--->>> Colle
 
 
 ***NASA -> Creating Mongoose Schema for Launches
+-When working with database is recommended to start with schemas and work from there
+
+Create a SCHEMA file in Models Folder
+launches.mongo.js -> see the file
+
+
+***Exercise: Creating Mongoose Schema for Planets
+planets.mongo.js -> see the file
+
+
+
+***Creating Models From Schemas]
+the both mongos file created in 'models' folder have to be exported
+
+
+***Mongoose Models vs MVC Models
+Why do we have 2 models now ?  launches models and mongo launches models ?
+
+They are not exactly the same, the difference between is that models and shemas are objects and classes that mongos provide to us to talk to collection of data in mongoDB
+Our simple model is something that generally captures the data and API working it
+
+
+
+***Inserting And Updating Documents
+-we gonna use planets mongo model we exported to insert planets that we found in the planets collection
+-require planets mongo model in planets.model.js -> const planets = require('./planets.mongo');
+
+!!! insert + update = upsert
+we need to upsert mongoDB when running/restarting server, if not it will duplicate and add over and over again same data... so upsert will insert data only if it doesn't exist 
+
+
+
+***Finding Documents
+in planets.model.js -> 
+    in function getAllPlanets(){
+        return await planets.find({  });
+    }
+
+    make functio getAllPlanets() async 
+
+in planets.controller.js -> 
+    make function httpGetAllPlanets() async too
+
+
+
+***The Upsert Operation
+in planets.model.js -> 
+
+.on('data', async (data) => {
+    // results.push(data);
+    if (isHabitablePlanet(data)) {
+        // habitablePlanets.push(data);
+        //now we gonna send data to mongoDB
+        savePlanet(data)
+    }
+})
+
+Our planets will only be added if it doesn't exist, it if does will not be added
+
+Create new function 
+
+async function savePlanet(planet) {
+    try {
+        await planets.updateOne({
+            //kepler_name is coming from kepler_data column
+            keplerName: planet.kepler_name,
+        }, {
+            keplerName: planet.kepler_name,
+        }, {
+            upsert: true,
+        });
+    } catch(err) {
+        console.error(`Could not ssave a planet ${err}`);
+    }
+}
+
+
+***ObjectIDs
+    MongoDB ObjectID to Timestamp Calculator - https://steveridout.github.io/
+
+ObjectIDs are the way that MongoDB stores data and make difference between objects from the array
+
+
+
+***Excluding Fields From The Response
+    that "__v" from mongoDB data, is the version of SCHEMA
+
+
+1.first {} is to select the Criteria
+2.second {} is to apply/select what fields to display
+return await planets.find({}, {
+
+})
+
+
+***Saving Launches
+-commnet following from launches.model.js 
+//launches.set(launch.flightNumber, launch);
+
+->async function saveLaunch(launch) {
+    await launchesDatabase.updateOne({
+        flightNumber: launch.flightNumber,
+        //if launch.flightNumber exists we inserting next parameter
+    }, launch, {
+        upsert: true,
+    });
+};
+
+
+
+
+***Listing All Launches
+
+
+
+
+***Referential Integrity
+    Referential Integrity - https://en.wikipedia.org/wiki/Referential_integrity 
+    Node.js Best Practices Repository - https://github.com/goldbergyoni/nodebestpractices
+
+
+
+***Auto Increment In MongoDB  
+When you have many databases side by side which one has to increment their data?
+This has to be always in sync so this is why it's a little bit difficult
+
+
+
+***Getting Latest Flight Number
+create a function for getting lastLaunches
+
+
+***Scheduling New Launches
+function scheduleNewLaunch()
+
+
+
+***Investigating A Mongoose Mystery
+
+
+***Aborting Launches
+we make request with 'delete' method
+
+
+***Updating Tests For Mongoose 
